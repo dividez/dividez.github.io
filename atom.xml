@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Hexo</title>
+  <subtitle>Build software better, together.</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://tenyearsme.cn/"/>
+  <updated>2017-08-30T07:11:57.575Z</updated>
+  <id>http://tenyearsme.cn/</id>
+  
+  <author>
+    <name>Jim Zhang</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>搭建自己的 Sentry 服务</title>
+    <link href="http://tenyearsme.cn/2017/08/30/create-sentry/"/>
+    <id>http://tenyearsme.cn/2017/08/30/create-sentry/</id>
+    <published>2017-08-30T07:09:44.193Z</published>
+    <updated>2017-08-30T07:11:57.575Z</updated>
+    
+    <content type="html"><![CDATA[<p><a href="https://laravel-china.org/articles/4235/sentry-automation-exception-alert" target="_blank" rel="external">Sentry 自动化异常提醒</a> 这篇文章已经介绍的很清楚了，这里直接讲一讲搭建自己的 <code>sentry</code> 服务，这样就免费使用 <code>sentry</code> 这个服务。</p>
+<h2 id="1、-安装-docker"><a href="#1、-安装-docker" class="headerlink" title="1、 安装 docker"></a>1、 安装 <code>docker</code></h2><p>首先要确认你的 Ubuntu 版本是否符合安装 Docker 的前提条件。如果没有问题，你可以通过下边的方式来安装 Docker ：</p>
+<p>使用具有 sudo 权限的用户来登录你的 Ubuntu 。</p>
+<p>查看你是否安装了 wget</p>
+<pre><code>$ which wget
+</code></pre><p>如果 wget 没有安装，先升级包管理器，然后再安装它。</p>
+<pre><code>$ sudo apt-get update $ sudo apt-get install wget
+</code></pre><p>获取最新版本的 Docker 安装包</p>
+<pre><code>$ wget -qO- https://get.docker.com/ | sh
+</code></pre><p>系统会提示你输入sudo密码，输入完成之后，就会下载脚本并且安装 Docker 及依赖包。</p>
+<p>通过 <code>docker --version</code> 可以查看版本号并确认是否安装成功。</p>
+<p>由于某种神秘原因国内无法直接从 docker 官方库直接获取镜像 这里我们使用 <a href="https://www.daocloud.io/mirror#accelerator-doc" target="_blank" rel="external">Docker 加速器</a> 运行下面命令即可。</p>
+<pre><code>curl -sSL https://get.daocloud.io/daotools/set_mirror.sh | sh -s http://4031ebb7.m.daocloud.io
+</code></pre><h2 id="2、安装-docker-compose"><a href="#2、安装-docker-compose" class="headerlink" title="2、安装 docker-compose"></a>2、安装 <code>docker-compose</code></h2><p>这里推荐使用 Python 的 pip 管理工具来安装 <code>docker-compose</code> </p>
+<pre><code>$ sudo pip install -U docker-compose
+</code></pre><p>到这里安装就结束了；<code>Compose</code> 已经安装完成。你可以使用 <code>docker-compose --version</code> 来进行测试 </p>
+<h2 id="3、-正式搭建sentry"><a href="#3、-正式搭建sentry" class="headerlink" title="3、 正式搭建sentry"></a>3、 正式搭建sentry</h2><p>做完了准备工作，就可以开始搭建sentry了。</p>
+<p>从 <a href="https://github.com/getsentry/onpremise" target="_blank" rel="external">GitHub</a> 上面获取最新的 sentry</p>
+<pre><code>git clone https://github.com/getsentry/onpremise.git
+</code></pre><p>获取到本地之后，就可以根据他的README.md开始着手搭建了，整个过程还是比较顺利的。</p>
+<p>进入 clone 下来的 <code>onpremise</code> 目录依次执行 </p>
+<ol>
+<li><p>创建对应的目录</p>
+<pre><code>mkdir -p data/{sentry,postgres} 
+</code></pre></li>
+<li><p>获取项目的 key</p>
+<pre><code>docker-compose run --rm web config generate-secret-key
+</code></pre><p> <img src="https://dn-phphub.qbox.me/uploads/images/201703/29/5978/cl5ribeIo5.png" alt="file"></p>
+<p> 复制获取到的 key 字符串 </p>
+<pre><code>vim docker-compose.yml
+</code></pre><p> 插入 docker-compose.yml 文件中<br> <img src="https://dn-phphub.qbox.me/uploads/images/201703/29/5978/MI7aJM7jbz.png" alt="file"></p>
+</li>
+<li><p>创建项目的 <code>superuser</code> </p>
+<pre><code>docker-compose run --rm web upgrade
+</code></pre><p> 该过程会让你输入 用户邮箱 和密码 一路走下去 即可。</p>
+</li>
+<li><p>开启 sentry 服务</p>
+<pre><code>docker-compose up -d 
+</code></pre></li>
+</ol>
+<p>这时候输入你的 http:://ip:9000 即可进入你的 sentry </p>
+<h2 id="4、简单配置"><a href="#4、简单配置" class="headerlink" title="4、简单配置"></a>4、简单配置</h2><p>登陆以后 右上角有 New Project</p>
+<p><img src="https://dn-phphub.qbox.me/uploads/images/201703/29/5978/KqiVNsRUJb.png" alt="file"></p>
+<p><img src="https://dn-phphub.qbox.me/uploads/images/201703/29/5978/XRkeqwvTDh.png" alt="file"></p>
+<p><img src="https://dn-phphub.qbox.me/uploads/images/201703/29/5978/C480PIRJ5n.png" alt="file"></p>
+<p>体验 sentry 带来的快感吧！（本文完）</p>
+<p>我的 <a href="http://www.tenyearsme.cn/blog/sentry-docker-create" target="_blank" rel="external">blog</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;a href=&quot;https://laravel-china.org/articles/4235/sentry-automation-exception-alert&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Sentry 自动化异常提醒&lt;/a&gt; 这篇文
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="http://tenyearsme.cn/2017/08/30/hello-world/"/>
+    <id>http://tenyearsme.cn/2017/08/30/hello-world/</id>
+    <published>2017-08-30T06:14:42.705Z</published>
+    <updated>2017-08-30T06:14:42.706Z</updated>
+    
+    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.
+    
+    </summary>
+    
+    
+  </entry>
+  
+</feed>
