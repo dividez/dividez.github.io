@@ -19,6 +19,8 @@ title: 搭建自己的 Sentry 服务
 	 
 获取最新版本的 Docker 安装包
 
+<!-- more -->
+
 	 $ wget -qO- https://get.docker.com/ | sh
 	 
 系统会提示你输入sudo密码，输入完成之后，就会下载脚本并且安装 Docker 及依赖包。

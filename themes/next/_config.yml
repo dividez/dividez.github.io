@@ -188,9 +188,9 @@ post_meta:
 # Dependencies: https://github.com/willin/hexo-wordcount
 post_wordcount:
   item_text: true
-  wordcount: false
-  min2read: false
-  totalcount: false
+  wordcount: true
+  min2read: true
+  totalcount: true
   separated_meta: true
 
 # Wechat Subscriber
@@ -686,6 +686,11 @@ vendors:
 css: css
 js: js
 images: images
+
+
+# auto_excerpt:
+#   enable: true
+#   length: 150
 
 # Theme version
 version: 5.1.2
