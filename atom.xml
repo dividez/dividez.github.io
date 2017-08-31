@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://tenyearsme.cn/"/>
-  <updated>2017-08-30T07:11:57.575Z</updated>
+  <updated>2017-08-31T03:48:41.386Z</updated>
   <id>http://tenyearsme.cn/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://tenyearsme.cn/2017/08/30/create-sentry/"/>
     <id>http://tenyearsme.cn/2017/08/30/create-sentry/</id>
     <published>2017-08-30T07:09:44.193Z</published>
-    <updated>2017-08-30T07:11:57.575Z</updated>
+    <updated>2017-08-31T03:48:41.386Z</updated>
     
     <content type="html"><![CDATA[<p><a href="https://laravel-china.org/articles/4235/sentry-automation-exception-alert" target="_blank" rel="external">Sentry 自动化异常提醒</a> 这篇文章已经介绍的很清楚了，这里直接讲一讲搭建自己的 <code>sentry</code> 服务，这样就免费使用 <code>sentry</code> 这个服务。</p>
 <h2 id="1、-安装-docker"><a href="#1、-安装-docker" class="headerlink" title="1、 安装 docker"></a>1、 安装 <code>docker</code></h2><p>首先要确认你的 Ubuntu 版本是否符合安装 Docker 的前提条件。如果没有问题，你可以通过下边的方式来安装 Docker ：</p>
@@ -30,6 +30,7 @@
 </code></pre><p>如果 wget 没有安装，先升级包管理器，然后再安装它。</p>
 <pre><code>$ sudo apt-get update $ sudo apt-get install wget
 </code></pre><p>获取最新版本的 Docker 安装包</p>
+<a id="more"></a>
 <pre><code>$ wget -qO- https://get.docker.com/ | sh
 </code></pre><p>系统会提示你输入sudo密码，输入完成之后，就会下载脚本并且安装 Docker 及依赖包。</p>
 <p>通过 <code>docker --version</code> 可以查看版本号并确认是否安装成功。</p>
@@ -73,7 +74,14 @@
     
     <summary type="html">
     
-      &lt;p&gt;&lt;a href=&quot;https://laravel-china.org/articles/4235/sentry-automation-exception-alert&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Sentry 自动化异常提醒&lt;/a&gt; 这篇文
+      &lt;p&gt;&lt;a href=&quot;https://laravel-china.org/articles/4235/sentry-automation-exception-alert&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Sentry 自动化异常提醒&lt;/a&gt; 这篇文章已经介绍的很清楚了，这里直接讲一讲搭建自己的 &lt;code&gt;sentry&lt;/code&gt; 服务，这样就免费使用 &lt;code&gt;sentry&lt;/code&gt; 这个服务。&lt;/p&gt;
+&lt;h2 id=&quot;1、-安装-docker&quot;&gt;&lt;a href=&quot;#1、-安装-docker&quot; class=&quot;headerlink&quot; title=&quot;1、 安装 docker&quot;&gt;&lt;/a&gt;1、 安装 &lt;code&gt;docker&lt;/code&gt;&lt;/h2&gt;&lt;p&gt;首先要确认你的 Ubuntu 版本是否符合安装 Docker 的前提条件。如果没有问题，你可以通过下边的方式来安装 Docker ：&lt;/p&gt;
+&lt;p&gt;使用具有 sudo 权限的用户来登录你的 Ubuntu 。&lt;/p&gt;
+&lt;p&gt;查看你是否安装了 wget&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ which wget
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;如果 wget 没有安装，先升级包管理器，然后再安装它。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ sudo apt-get update $ sudo apt-get install wget
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;获取最新版本的 Docker 安装包&lt;/p&gt;
     
     </summary>
     
