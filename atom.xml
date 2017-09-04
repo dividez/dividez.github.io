@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://tenyearsme.cn/"/>
-  <updated>2017-08-31T03:48:41.386Z</updated>
+  <updated>2017-09-04T03:38:32.619Z</updated>
   <id>http://tenyearsme.cn/</id>
   
   <author>
@@ -16,11 +16,35 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>PyCharm设置python新建文件指定编码为utf-8</title>
+    <link href="http://tenyearsme.cn/2017/09/04/python-2017-09-04-11-34/"/>
+    <id>http://tenyearsme.cn/2017/09/04/python-2017-09-04-11-34/</id>
+    <published>2017-09-04T03:34:35.000Z</published>
+    <updated>2017-09-04T03:38:32.619Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="https://dn-phphub.qbox.me/uploads/images/201709/04/5978/HuGGkg96SA.png" alt="file"></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;https://dn-phphub.qbox.me/uploads/images/201709/04/5978/HuGGkg96SA.png&quot; alt=&quot;file&quot;&gt;&lt;/p&gt;
+
+    
+    </summary>
+    
+      <category term="Studying" scheme="http://tenyearsme.cn/categories/Studying/"/>
+    
+    
+      <category term="python" scheme="http://tenyearsme.cn/tags/python/"/>
+    
+  </entry>
+  
+  <entry>
     <title>搭建自己的 Sentry 服务</title>
     <link href="http://tenyearsme.cn/2017/08/30/create-sentry/"/>
     <id>http://tenyearsme.cn/2017/08/30/create-sentry/</id>
     <published>2017-08-30T07:09:44.193Z</published>
-    <updated>2017-08-31T03:48:41.386Z</updated>
+    <updated>2017-09-04T03:35:24.460Z</updated>
     
     <content type="html"><![CDATA[<p><a href="https://laravel-china.org/articles/4235/sentry-automation-exception-alert" target="_blank" rel="external">Sentry 自动化异常提醒</a> 这篇文章已经介绍的很清楚了，这里直接讲一讲搭建自己的 <code>sentry</code> 服务，这样就免费使用 <code>sentry</code> 这个服务。</p>
 <h2 id="1、-安装-docker"><a href="#1、-安装-docker" class="headerlink" title="1、 安装 docker"></a>1、 安装 <code>docker</code></h2><p>首先要确认你的 Ubuntu 版本是否符合安装 Docker 的前提条件。如果没有问题，你可以通过下边的方式来安装 Docker ：</p>
