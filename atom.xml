@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://tenyearsme.cn/"/>
-  <updated>2017-09-04T03:38:32.619Z</updated>
+  <updated>2017-09-12T08:21:53.556Z</updated>
   <id>http://tenyearsme.cn/</id>
   
   <author>
@@ -14,6 +14,48 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>网站与工具的积累</title>
+    <link href="http://tenyearsme.cn/2017/09/12/links/"/>
+    <id>http://tenyearsme.cn/2017/09/12/links/</id>
+    <published>2017-09-12T08:08:10.000Z</published>
+    <updated>2017-09-12T08:21:53.556Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="Boosstrap组件"><a href="#Boosstrap组件" class="headerlink" title="Boosstrap组件"></a>Boosstrap组件</h2><p><a href="http://github.hubspot.com/messenger/docs/welcome/" target="_blank" rel="external">Messenger</a></p>
+<blockquote>
+<p>一个消息弹窗组件</p>
+</blockquote>
+<p><a href="https://limonte.github.io/sweetalert2/" target="_blank" rel="external">sweetalert2</a></p>
+<blockquote>
+<p>A BEAUTIFUL, RESPONSIVE, CUSTOMIZABLE, ACCESSIBLE (WAI-ARIA) REPLACEMENT FOR JAVASCRIPT’S POPUP BOXES</p>
+</blockquote>
+<p><a href="https://select2.org/" target="_blank" rel="external">select2</a></p>
+<blockquote>
+<p>Select2 gives you a customizable select box with support for searching, tagging, remote data sets, infinite scrolling, and many other highly used options.</p>
+</blockquote>
+<p><a href="http://www.daterangepicker.com/#examples" target="_blank" rel="external">daterangepicker</a></p>
+<blockquote>
+<p>A JavaScript component for choosing date ranges. Designed to work with the Bootstrap CSS framework.</p>
+</blockquote>
+<p><a href="http://formvalidation.io/" target="_blank" rel="external">bootstrapvalidator</a></p>
+<blockquote>
+<p>Best jQuery plugin to validate form fields Designed for Bootstrap 3/4 · Foundation 5/6 · Pure · Semantic UI · UIKit · other</p>
+</blockquote>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;Boosstrap组件&quot;&gt;&lt;a href=&quot;#Boosstrap组件&quot; class=&quot;headerlink&quot; title=&quot;Boosstrap组件&quot;&gt;&lt;/a&gt;Boosstrap组件&lt;/h2&gt;&lt;p&gt;&lt;a href=&quot;http://github.hubspot.com
+    
+    </summary>
+    
+      <category term="积累" scheme="http://tenyearsme.cn/categories/%E7%A7%AF%E7%B4%AF/"/>
+    
+    
+      <category term="积累" scheme="http://tenyearsme.cn/tags/%E7%A7%AF%E7%B4%AF/"/>
+    
+  </entry>
   
   <entry>
     <title>PyCharm设置python新建文件指定编码为utf-8</title>
