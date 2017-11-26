@@ -1,0 +1,100 @@
+---
+title: 搭建自己的科学上网方式
+date: 2017-11-26 11:54:24
+tags: 科学上网
+comments: false
+---
+
+## 搭建自己的科学上网方式
+
+1. [搬瓦工服务器](https://bandwagonhost.com/) 购买搬瓦工的服务器(最便宜的就可以了 `$2.99/month`)
+
+2. `Xshell` 链接 `vps`
+
+   搭建 `Shadowsocks` 服务器:
+
+   什么是 `Shadowsocks`，通常我们叫它 `小飞机` 它能帮助我们翻越 `GFW` 墙，我在网上找了一张它运行原理流程图图：
+
+   ![file](https://dn-phphub.qbox.me/uploads/images/201611/30/4430/zBEZurdB3Y.png)
+
+在安装 `Shadowsocks` 之前，我们需要安装 `python-pip` 它是 `python` 的包管理工具，类似于我们的 `apt-get`，执行以下命令：
+
+```
+apt-get update
+apt-get install python-pip
+pip install shadowsocks
+```
+<!-- more -->
+
+然后我们在 `/etc/shadowsocks.json` 里面写一个配置文件：
+
+```json
+# vim /etc/shadowsocks.json
+
+# 内容如下
+
+{
+    "server":"my_server_ip", // 这里填写 vps 的 ip
+    "server_port":8388,
+    "local_address": "127.0.0.1",
+    "local_port":1080,
+    "password":"mypassword", // 这里设置密码
+    "timeout":300,
+    "method":"rc4-md5", // 这里推荐使用 md5 加密方式
+    "fast_open": false
+}
+```
+
+配置完成信息之后，我们就可以启动了 `Shadowsocks` 服务器了
+
+```
+ssserver -c /etc/shadowsocks.json -d start
+```
+
+可能你不希望每次重启服务器都手动启动 `SS`，因此我们要把这条命令放到这个文件下：`/etc/rc.d/rc.local`，这样以后就能开机自动运行了。
+
+在 `windows` 或者 `Mac` 上面都有 `Shadowsocks` 客户端版本：<https://github.com/shadowsocks>，在这里下载对应的系统版本，然后编辑 `小灰机`：
+
+![file](https://dn-phphub.qbox.me/uploads/images/201711/26/5978/OqiLoyAeML.png)
+
+
+
+## 使用路由器实现无痛翻墙
+
+[极路由](http://www.hiwifi.com) 购买极路由
+
+极路由比一般路由器功能更加强大，不但支持各种认证（非常适合各大高校校园网的接入），还集成了各种插件，现在我们希望能将ss插件加入到极路由上面，从而实现“科学上网”。 
+
+1. root路由器 
+
+   1.申请开发者模式，这一步保证了我们能自己刷入第三方插件，教程地址：[极路由器申请开发者模式](https://jingyan.baidu.com/article/4f7d5712ca0d031a21192779.html) 
+   2.安装开发者插件，进入路由器管理后台，安装开发者插件：“云插件”>“全部插件”>“开发者模式”>”确定”
+
+   ![file](https://dn-phphub.qbox.me/uploads/images/201711/26/5978/8L7yvOvULt.png)
+
+2. SSH登录路由器 
+
+   这里我们需要用到`PUTTY`工具: 下载地址百度上有的。 
+   运行`putty`,看到如下界面，输入极路由的`ip 192.168.199.1`,端口`1022`。点击打开 
+
+3. 如果连接成功，我们会看到一个弹出窗口提示保密钥，点击是。保存后便会登陆极路由 
+   接着输入root,回车，接下来输入极路由后台密码（输入过程不显示的，莫惊慌，只管输入完，回车)
+
+4. 刷`shadowsocks`插件 
+
+   1. 开始刷`ss`插件，复制以下代码，在`putty`里鼠标右键粘贴，再回车执行， 
+   2. 根据你的路由器固件版本刷入以下其一即可，安装完成之后一定重启路由才算成功。
+
+   ```
+   #一键安装脚本（支持最新版1.3.4.18145s固件） 
+   cd /tmp &&curl -k -o shadow.sh https://raw.githubusercontent.com/qiwihui/hiwifi-ss/master/shadow.sh && sh shadow.sh && rm shadow.sh 回车 
+   #一键安装脚本（仅支持1.2.5.15805s固件） 
+   cd /tmp && curl -k -o shadow.sh https://raw.githubusercontent.com/cllu/hiwifi-ss/hiwifi-v1.2.5/shadow.sh && sh shadow.sh && rm shadow.sh 回车
+   ```
+
+5. 最后切记2点 
+
+   1. 插件在路由器系统升级后会消失，请把自动升级改为手动升级。 
+   2. 请不要恢复路由器出厂设置，否则插件也会消失。 
+
+![file](https://dn-phphub.qbox.me/uploads/images/201711/26/5978/58ACGxUcZ2.png)
