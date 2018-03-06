@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://tenyearsme.cn/"/>
-  <updated>2017-10-16T01:01:37.755Z</updated>
+  <updated>2017-12-29T02:35:45.049Z</updated>
   <id>http://tenyearsme.cn/</id>
   
   <author>
@@ -14,6 +14,82 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>搭建自己的科学上网方式</title>
+    <link href="http://tenyearsme.cn/2017/11/26/own-way-of-science-online/"/>
+    <id>http://tenyearsme.cn/2017/11/26/own-way-of-science-online/</id>
+    <published>2017-11-26T03:54:24.000Z</published>
+    <updated>2017-12-29T02:35:45.049Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="搭建自己的科学上网方式"><a href="#搭建自己的科学上网方式" class="headerlink" title="搭建自己的科学上网方式"></a>搭建自己的科学上网方式</h2><ol>
+<li><p><a href="https://bandwagonhost.com/" target="_blank" rel="external">搬瓦工服务器</a> 购买搬瓦工的服务器(最便宜的就可以了 <code>$2.99/month</code>)</p>
+</li>
+<li><p><code>Xshell</code> 链接 <code>vps</code></p>
+<p>搭建 <code>Shadowsocks</code> 服务器:</p>
+<p>什么是 <code>Shadowsocks</code>，通常我们叫它 <code>小飞机</code> 它能帮助我们翻越 <code>GFW</code> 墙，我在网上找了一张它运行原理流程图图：</p>
+<p><img src="https://dn-phphub.qbox.me/uploads/images/201611/30/4430/zBEZurdB3Y.png" alt="file"></p>
+</li>
+</ol>
+<p>在安装 <code>Shadowsocks</code> 之前，我们需要安装 <code>python-pip</code> 它是 <code>python</code> 的包管理工具，类似于我们的 <code>apt-get</code>，执行以下命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">apt-get update</div><div class="line">apt-get install python-pip</div><div class="line">pip install shadowsocks</div></pre></td></tr></table></figure>
+<a id="more"></a>
+<p>然后我们在 <code>/etc/shadowsocks.json</code> 里面写一个配置文件：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"># vim /etc/shadowsocks.json</div><div class="line"></div><div class="line"># 内容如下</div><div class="line"></div><div class="line">&#123;</div><div class="line">    "server":"my_server_ip", // 这里填写 vps 的 ip</div><div class="line">    "server_port":8388,</div><div class="line">    "local_address": "127.0.0.1",</div><div class="line">    "local_port":1080,</div><div class="line">    "password":"mypassword", // 这里设置密码</div><div class="line">    "timeout":300,</div><div class="line">    "method":"rc4-md5", // 这里推荐使用 md5 加密方式</div><div class="line">    "fast_open": false</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>配置完成信息之后，我们就可以启动了 <code>Shadowsocks</code> 服务器了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssserver -c /etc/shadowsocks.json -d start</div></pre></td></tr></table></figure>
+<p>可能你不希望每次重启服务器都手动启动 <code>SS</code>，因此我们要把这条命令放到这个文件下：<code>/etc/rc.d/rc.local</code>，这样以后就能开机自动运行了。</p>
+<p>在 <code>windows</code> 或者 <code>Mac</code> 上面都有 <code>Shadowsocks</code> 客户端版本：<a href="https://github.com/shadowsocks" target="_blank" rel="external">https://github.com/shadowsocks</a>，在这里下载对应的系统版本，然后编辑 <code>小灰机</code>：</p>
+<p><img src="https://dn-phphub.qbox.me/uploads/images/201711/26/5978/OqiLoyAeML.png" alt="file"></p>
+<h2 id="使用路由器实现无痛翻墙"><a href="#使用路由器实现无痛翻墙" class="headerlink" title="使用路由器实现无痛翻墙"></a>使用路由器实现无痛翻墙</h2><p><a href="http://www.hiwifi.com" target="_blank" rel="external">极路由</a> 购买极路由</p>
+<p>极路由比一般路由器功能更加强大，不但支持各种认证（非常适合各大高校校园网的接入），还集成了各种插件，现在我们希望能将ss插件加入到极路由上面，从而实现“科学上网”。 </p>
+<ol>
+<li><p>root路由器 </p>
+<p>1.申请开发者模式，这一步保证了我们能自己刷入第三方插件，教程地址：<a href="https://jingyan.baidu.com/article/4f7d5712ca0d031a21192779.html" target="_blank" rel="external">极路由器申请开发者模式</a><br>2.安装开发者插件，进入路由器管理后台，安装开发者插件：“云插件”&gt;“全部插件”&gt;“开发者模式”&gt;”确定”</p>
+<p><img src="https://dn-phphub.qbox.me/uploads/images/201711/26/5978/8L7yvOvULt.png" alt="file"></p>
+</li>
+<li><p>SSH登录路由器 </p>
+<p>这里我们需要用到<code>PUTTY</code>工具: 下载地址百度上有的。<br>运行<code>putty</code>,看到如下界面，输入极路由的<code>ip 192.168.199.1</code>,端口<code>1022</code>。点击打开 </p>
+</li>
+<li><p>如果连接成功，我们会看到一个弹出窗口提示保密钥，点击是。保存后便会登陆极路由<br>接着输入root,回车，接下来输入极路由后台密码（输入过程不显示的，莫惊慌，只管输入完，回车)</p>
+</li>
+<li><p>刷<code>shadowsocks</code>插件 </p>
+<ol>
+<li>开始刷<code>ss</code>插件，复制以下代码，在<code>putty</code>里鼠标右键粘贴，再回车执行， </li>
+<li>根据你的路由器固件版本刷入以下其一即可，安装完成之后一定重启路由才算成功。</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">#一键安装脚本（支持最新版1.3.4.18145s固件） </div><div class="line">cd /tmp &amp;&amp;curl -k -o shadow.sh https://raw.githubusercontent.com/qiwihui/hiwifi-ss/master/shadow.sh &amp;&amp; sh shadow.sh &amp;&amp; rm shadow.sh 回车 </div><div class="line">#一键安装脚本（仅支持1.2.5.15805s固件） </div><div class="line">cd /tmp &amp;&amp; curl -k -o shadow.sh https://raw.githubusercontent.com/cllu/hiwifi-ss/hiwifi-v1.2.5/shadow.sh &amp;&amp; sh shadow.sh &amp;&amp; rm shadow.sh 回车</div></pre></td></tr></table></figure>
+</li>
+<li><p>最后切记2点 </p>
+<ol>
+<li>插件在路由器系统升级后会消失，请把自动升级改为手动升级。 </li>
+<li>请不要恢复路由器出厂设置，否则插件也会消失。 </li>
+</ol>
+</li>
+</ol>
+<p><img src="https://dn-phphub.qbox.me/uploads/images/201711/26/5978/58ACGxUcZ2.png" alt="file"></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;搭建自己的科学上网方式&quot;&gt;&lt;a href=&quot;#搭建自己的科学上网方式&quot; class=&quot;headerlink&quot; title=&quot;搭建自己的科学上网方式&quot;&gt;&lt;/a&gt;搭建自己的科学上网方式&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&quot;https://bandwagonhost.com/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;搬瓦工服务器&lt;/a&gt; 购买搬瓦工的服务器(最便宜的就可以了 &lt;code&gt;$2.99/month&lt;/code&gt;)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;Xshell&lt;/code&gt; 链接 &lt;code&gt;vps&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;搭建 &lt;code&gt;Shadowsocks&lt;/code&gt; 服务器:&lt;/p&gt;
+&lt;p&gt;什么是 &lt;code&gt;Shadowsocks&lt;/code&gt;，通常我们叫它 &lt;code&gt;小飞机&lt;/code&gt; 它能帮助我们翻越 &lt;code&gt;GFW&lt;/code&gt; 墙，我在网上找了一张它运行原理流程图图：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://dn-phphub.qbox.me/uploads/images/201611/30/4430/zBEZurdB3Y.png&quot; alt=&quot;file&quot;&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;在安装 &lt;code&gt;Shadowsocks&lt;/code&gt; 之前，我们需要安装 &lt;code&gt;python-pip&lt;/code&gt; 它是 &lt;code&gt;python&lt;/code&gt; 的包管理工具，类似于我们的 &lt;code&gt;apt-get&lt;/code&gt;，执行以下命令：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;apt-get update&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;apt-get install python-pip&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;pip install shadowsocks&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+    
+    </summary>
+    
+    
+      <category term="科学上网" scheme="http://tenyearsme.cn/tags/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/"/>
+    
+  </entry>
   
   <entry>
     <title>Regular</title>
